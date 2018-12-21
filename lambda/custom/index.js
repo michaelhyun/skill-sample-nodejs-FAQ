@@ -8,30 +8,37 @@ const LaunchRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput) {
-    const speechText = 'Welcome to the Alexa Skills Kit, you can say hello!';
+    const speechText = 'Ask me any question!';
 
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('Hello World', speechText)
       .getResponse();
   },
 };
 
-const HelloWorldIntentHandler = {
+const data = [
+  {
+    Question: 'Where is the printer?',
+    Answer: 'The printer is next to the restroom'
+  }
+]
+
+const QuestionIntentHandler = {
   canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && handlerInput.requestEnvelope.request.intent.name === 'HelloWorldIntent';
-  },
+    return handlerInput.requestEnvelope.request.type == 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name == 'QuestionIntent';
+  }
   handle(handlerInput) {
-    const speechText = 'Hello World!';
+    
+    // use slot to find answer
 
     return handlerInput.responseBuilder
-      .speak(speechText)
-      .withSimpleCard('Hello World', speechText)
+      // speak answer
+      .speak()
       .getResponse();
-  },
-};
+  }
+}
 
 const HelpIntentHandler = {
   canHandle(handlerInput) {
@@ -39,12 +46,11 @@ const HelpIntentHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
-    const speechText = 'You can say hello to me!';
+    const speechText = 'You can ask me a question!';
 
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('Hello World', speechText)
       .getResponse();
   },
 };
@@ -60,7 +66,6 @@ const CancelAndStopIntentHandler = {
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .withSimpleCard('Hello World', speechText)
       .getResponse();
   },
 };
@@ -95,7 +100,7 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 exports.handler = skillBuilder
   .addRequestHandlers(
     LaunchRequestHandler,
-    HelloWorldIntentHandler,
+    QuestionIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler

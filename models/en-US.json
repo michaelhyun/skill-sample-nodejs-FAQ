@@ -1,8 +1,12 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "hello world",
+      // Need to change invocation name
+      "invocationName": "FAQ",
       "intents": [
+        { "name": "QuestionIntent",
+          "samples":[]
+        },
         {
           "name": "AMAZON.CancelIntent",
           "samples": []
